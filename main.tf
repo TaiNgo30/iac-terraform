@@ -16,6 +16,9 @@ module "security" {
   source = "./modules/security"
   region = var.region
   vpc_id = module.networking.vpc_id
+  public_ingress_rules = var.public_ingress_rules
+  private_ingress_rules = var.private_ingress_rules
+  egress_rules = var.egress_rules
 }
 
 resource "aws_key_pair" "ec2_key" {
