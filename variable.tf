@@ -66,10 +66,10 @@ variable "private_ingress_rules" {
 variable "egress_rules" {
   description = "List of egress rules"
   type = list(object({
-    from_port = number
-    to_port = number
-    protocol = string
-    cidr_blocks = list(string) 
+    from_port   = number
+    to_port     = number
+    protocol    = string
+    cidr_blocks = list(string)
   }))
 }
 
@@ -85,10 +85,6 @@ variable "environment" {
   type        = string
 }
 
-variable "launch_template_id" {
-  description = "ID of the EC2 launch template created in the compute module"
-  type        = string
-}
 
 variable "max_size" {
   description = "Maximum size of the ASG"

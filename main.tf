@@ -44,7 +44,7 @@ module "alb_asg" {
   source                   = "./modules/alb-asg"
   environment              = var.environment
   desired_capacity         = var.desired_capacity
-  launch_template_id       = var.launch_template_id
+  launch_template_id       = module.compute.launch_template_id
   max_size                 = var.max_size
   min_size                 = var.min_size
   private_subnet_ids       = module.networking.private_subnet_ids
