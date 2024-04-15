@@ -66,9 +66,56 @@ variable "private_ingress_rules" {
 variable "egress_rules" {
   description = "List of egress rules"
   type = list(object({
-    from_port = number
-    to_port = number
-    protocol = string
-    cidr_blocks = list(string) 
+    from_port   = number
+    to_port     = number
+    protocol    = string
+    cidr_blocks = list(string)
   }))
+}
+
+
+########################
+
+variable "environment" {
+  description = "The deployment environment (e.g., prod, dev, staging)"
+  default     = "dev"
+}
+
+variable "internal" {
+  type    = bool
+  default = false
+}
+variable "version-01" {
+  type    = string
+  default = "$Latest"
+}
+variable "enable_deletion_protection" {
+  type    = bool
+  default = false
+}
+
+
+variable "enable_health_check" {
+  description = "Enable health check for the target group"
+  type        = bool
+  default     = true
+}
+
+variable "load_balancer_type" {
+  type    = string
+  default = "application"
+}
+variable "desired_capacity" {
+  description = "Desired number of instances in the ASG"
+  type        = number
+}
+
+variable "max_size" {
+  description = "Maximum size of the ASG"
+  type        = number
+}
+
+variable "min_size" {
+  description = "Minimum size of the ASG"
+  type        = number
 }
