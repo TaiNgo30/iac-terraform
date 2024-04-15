@@ -1,11 +1,11 @@
 resource "aws_lb" "app" {
   name               = "app-lb-${var.environment}"
-  internal           = false
-  load_balancer_type = "application"
+  internal           = var.internal
+  load_balancer_type = var.load_balancer_type
   security_groups    = [var.public_security_group_id]
   subnets            = var.public_subnet_ids
 
-  enable_deletion_protection = false
+  enable_deletion_protection = var.enable_deletion_protection
 }
 
 resource "aws_lb_target_group" "app" {
@@ -14,21 +14,25 @@ resource "aws_lb_target_group" "app" {
   protocol = "HTTP"
   vpc_id   = var.vpc_id
 
-  health_check {
-    enabled             = true
-    interval            = 30
-    path                = "/"
-    protocol            = "HTTP"
-    timeout             = 5
-    healthy_threshold   = 2
-    unhealthy_threshold = 2
+  dynamic "health_check" {
+    for_each = var.enable_health_check ? [1] : []
+    content {
+      enabled             = true
+      interval            = 30
+      path                = "/"
+      protocol            = "HTTP"
+      timeout             = 5
+      healthy_threshold   = 2
+      unhealthy_threshold = 2
+    }
+
   }
 }
 
 resource "aws_autoscaling_group" "app" {
   launch_template {
     id      = var.launch_template_id
-    version = "$Latest"
+    version = var.version-01
   }
 
   min_size            = var.min_size
