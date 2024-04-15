@@ -46,3 +46,11 @@ egress_rules = [{
   protocol    = "-1"
   cidr_blocks = ["0.0.0.0/0"]
 }]
+
+
+
+desired_capacity   = 2
+environment        = "prod"
+launch_template_id = "lt-01234abcd"
+max_size           = 4
+min_size           = 2

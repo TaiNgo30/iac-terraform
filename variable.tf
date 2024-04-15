@@ -72,3 +72,30 @@ variable "egress_rules" {
     cidr_blocks = list(string) 
   }))
 }
+
+
+########################
+variable "desired_capacity" {
+  description = "Desired number of instances in the ASG"
+  type        = number
+}
+
+variable "environment" {
+  description = "The deployment environment (e.g., prod, dev, staging)"
+  type        = string
+}
+
+variable "launch_template_id" {
+  description = "ID of the EC2 launch template created in the compute module"
+  type        = string
+}
+
+variable "max_size" {
+  description = "Maximum size of the ASG"
+  type        = number
+}
+
+variable "min_size" {
+  description = "Minimum size of the ASG"
+  type        = number
+}
